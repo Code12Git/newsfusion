@@ -23,14 +23,14 @@ app.use(cookieParser());
 
 app.use(express.json());
 
-const allowedOrigins = ['http://localhost:3000', 'https://newsfusionapp.onrender.com'];
+// const allowedOrigins = ['http://localhost:3000', 'https://newsfusionapp.onrender.com'];
 
 const corsOptions = {
-  origin: allowedOrigins,
+  origin: true,
   credentials: true,
 };
 
-app.use(cors(corsOptions));
+app.use("*",cors(corsOptions));
 
 // Enabling Cross-Origin Resource Sharing (CORS)
 app.use("/api/auth", authRoute); //Api for authentication
