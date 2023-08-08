@@ -22,8 +22,11 @@ const port = process.env.PORT || 3000;
 app.use(cookieParser());
 
 app.use(express.json());
+
+const allowedOrigins = ['http://localhost:3000', 'https://newsfusionapp.onrender.com'];
+
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: allowedOrigins,
   credentials: true,
 };
 
