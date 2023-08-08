@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import authRoute from "./routes/auth.js";
 import cookieParser from "cookie-parser";
 import newsRoute from "./routes/news.js";
+import session from "express-session";
 
 // Loading environment variables from the config file
 dotenv.config({ path: "./config.env" });
@@ -20,17 +21,28 @@ const port = process.env.PORT || 3000;
 
 // Appling middleware
 app.use(cookieParser());
-
-app.use(express.json());
-
-// const allowedOrigins = ['http://localhost:3000', 'https://newsfusionapp.onrender.com'];
-
 const corsOptions = {
-  origin: true,
+  origin: "https://newsfusion.vercel.app",
   credentials: true,
 };
 
-app.use("*",cors(corsOptions));
+app.use(cors(corsOptions));
+app.use(
+  session({
+    resave: false,
+    saveUninitialized: false,
+    secret: "session",
+    cookie: {
+      maxAge: 1000 * 60 * 60,
+      sameSite: "none",
+      secure: true,
+    },
+  })
+);
+
+app.set("trust proxy", 1);
+
+app.use(express.json());
 
 // Enabling Cross-Origin Resource Sharing (CORS)
 app.use("/api/auth", authRoute); //Api for authentication
