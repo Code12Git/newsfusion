@@ -31,7 +31,7 @@ app.use(cors(corsOptions));
 
 // Session configuration with connect-mongo
 
-const MongoStoreInstance = connectMongo(session);
+const MongoStoreInstance = new connectMongo(session);
 app.use(
   session({
     store: new MongoStoreInstance({
