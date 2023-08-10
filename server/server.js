@@ -31,10 +31,10 @@ app.use(
   session({
     resave: false,
     saveUninitialized: false,
-    secret: "session",
+    secret: process.env.SECRET_KEY || "session",
     cookie: {
       maxAge: 1000 * 60 * 60,
-      sameSite: "none",
+      sameSite: "lex",
       secure: true,
     },
   })
