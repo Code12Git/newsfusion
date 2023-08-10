@@ -9,7 +9,7 @@ const NewsCard = ({ articles }) => {
 
   const handleSaveClick = async (url) => {
     try {
-      await publicRequest.post("/news/save-article", {
+      await publicRequest.post("/api/news/save-article", {
         articleId: url,
         title: articles.title,
         source: articles.source.name,
@@ -27,7 +27,7 @@ const NewsCard = ({ articles }) => {
 
   const handleViewClick = async () => {
     try {
-      await publicRequest.post("/news/view-article", {
+      await publicRequest.post("/api/news/view-article", {
         articleId: articles.url,
         title: articles.title,
         source: articles.source.name,

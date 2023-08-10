@@ -12,7 +12,7 @@ function Topbar() {
 
   const handleLogout = async () => {
     try {
-      await publicRequest.get("auth/logout");
+      await publicRequest.get("/api/auth/logout");
       localStorage.removeItem("user");
       navigate("/login");
     } catch (err) {

@@ -11,7 +11,7 @@ const SavedArticles = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await publicRequest.get("/news/saved-articles");
+        const res = await publicRequest.get("/api/news/saved-articles");
         setSavedArticles(res.data.savedArticles);
         setIsLoading(false);
       } catch (error) {

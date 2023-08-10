@@ -21,7 +21,7 @@ const Home = () => {
 
   const handleSubmit = async () => {
     try {
-      await publicRequest.post("/news", {
+      await publicRequest.post("/api/news", {
         selectedInterests: [selectedCategory],
       });
       toast.success("News Updated successfully");

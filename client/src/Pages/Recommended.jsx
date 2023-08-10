@@ -13,7 +13,7 @@ const Recommended = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await publicRequest.get("/news/recommendations");
+        const res = await publicRequest.get("/api/news/recommendations");
         setRecommendedArticles(res.data.recommendedArticles);
         setIsLoading(false);
       } catch (error) {

@@ -10,7 +10,7 @@ const NewsFetch = ({ onSelect }) => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await publicRequest.get("/news", {
+        const response = await publicRequest.get("/api/news", {
           params: { category: onSelect.toLowerCase() },
         });
         setNews(response.data.articles);
