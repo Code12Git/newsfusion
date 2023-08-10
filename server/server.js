@@ -26,7 +26,7 @@ app.use(cookieParser());
 
 // CORS configuration
 const corsOptions = {
-  origin: "https://newsfusion.vercel.app",
+  origin: "https://newsfusionapp.onrender.com/register",
   credentials: true,
 };
 app.use(cors(corsOptions));
