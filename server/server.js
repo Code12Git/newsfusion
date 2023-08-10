@@ -6,6 +6,7 @@ import authRoute from "./routes/auth.js";
 import cookieParser from "cookie-parser";
 import newsRoute from "./routes/news.js";
 import session from "express-session";
+import connectMongo from "connect-mongo";
 
 // Loading environment variables from the config file
 dotenv.config({ path: "./config.env" });
@@ -15,6 +16,7 @@ connection();
 
 // Creating an instance of the Express app
 const app = express();
+const MongoStore = connectMongo(session);
 
 // Defining the port for the server to listen on
 const port = process.env.PORT || 3000;
