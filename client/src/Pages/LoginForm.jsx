@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { NavLink, useNavigate } from "react-router-dom";
-import { publicRequest } from "../utils/axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { createAuthorizedRequest } from "../utils/axios";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -28,7 +28,9 @@ const LoginForm = () => {
     }
 
     try {
-      const res = await publicRequest.post("/api/auth/login", {
+      const authorizedRequest = createAuthorizedRequest();
+
+      const res = await authorizedRequest.post("/auth/login", {
         username,
         password,
       });

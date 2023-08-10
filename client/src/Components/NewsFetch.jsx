@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { publicRequest } from "../utils/axios";
+
 import NewsCard from "./NewsCard";
+import { createAuthorizedRequest } from "../utils/axios";
 
 const NewsFetch = ({ onSelect }) => {
   const [news, setNews] = useState([]);
@@ -10,7 +11,8 @@ const NewsFetch = ({ onSelect }) => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await publicRequest.get("/api/news", {
+        const authorizedRequest = createAuthorizedRequest();
+        const response = await authorizedRequest.get("/news", {
           params: { category: onSelect.toLowerCase() },
         });
         setNews(response.data.articles);

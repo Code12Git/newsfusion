@@ -8,6 +8,7 @@ dotenv.config();
 
 export const updateNewsInterests = async (req, res) => {
   const userId = req.user.id;
+
   const { selectedInterests } = req.body;
 
   try {
@@ -49,6 +50,7 @@ export const fetchNews = async (req, res) => {
 // Save the articles
 export const saveArticle = async (req, res) => {
   const userId = req.user.id;
+  console.log(userId);
   const { articleId, title, source, content, imageUrl, publishedAt } = req.body;
 
   try {

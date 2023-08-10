@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { publicRequest } from "../utils/axios";
 import Topbar from "../Components/Topbar";
 import ClipLoader from "react-spinners/ClipLoader";
+import { createAuthorizedRequest } from "../utils/axios";
 
 const SavedArticles = () => {
   const [articles, setSavedArticles] = useState([]);
@@ -11,7 +11,9 @@ const SavedArticles = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await publicRequest.get("/api/news/saved-articles");
+        const authorizedRequest = createAuthorizedRequest();
+
+        const res = await authorizedRequest.get("/news/saved-articles");
         setSavedArticles(res.data.savedArticles);
         setIsLoading(false);
       } catch (error) {

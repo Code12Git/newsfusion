@@ -56,17 +56,17 @@ export const loginUser = async (req, res) => {
     }
 
     // Generating an access token
-    const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY);
+    const token = jwt.sign(
+      {
+        id: user._id,
+      },
+      process.env.SECRET_KEY,
+      { expiresIn: "2d" }
+    );
 
     // Responding with user data and access token
     const { password, confirmPassword, ...userData } = user.toObject();
-
-    res
-      .cookie("access_token", token, {
-        httpOnly: true,
-      })
-      .status(200)
-      .json({ user: userData });
+    res.status(200).json({ user: userData, token }); // Send the user data and token in the response
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -74,6 +74,5 @@ export const loginUser = async (req, res) => {
 
 //Logout
 export const logoutController = (req, res) => {
-  res.clearCookie("access_token");
   res.status(200).json({ message: "Logged out successfully" });
 };

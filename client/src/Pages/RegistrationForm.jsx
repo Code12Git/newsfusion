@@ -30,7 +30,7 @@ const RegistrationForm = () => {
       if (!username || !email || !password || !confirmPassword) {
         toast.error("Please enter all required fields");
       } else {
-        await publicRequest.post("/api/auth/register", {
+        await publicRequest.post("/auth/register", {
           username,
           email,
           password,

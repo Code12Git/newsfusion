@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
-import { publicRequest } from "../utils/axios";
+import { createAuthorizedRequest } from "../utils/axios";
 
 function Topbar() {
   const navigate = useNavigate();
@@ -12,8 +12,11 @@ function Topbar() {
 
   const handleLogout = async () => {
     try {
-      await publicRequest.get("/api/auth/logout");
+      const authorizedRequest = createAuthorizedRequest();
+
+      await authorizedRequest.get("/auth/logout");
       localStorage.removeItem("user");
+      localStorage.removeItem("token");
       navigate("/login");
     } catch (err) {
       toast("Logout failed");

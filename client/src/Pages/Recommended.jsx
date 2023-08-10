@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { publicRequest } from "../utils/axios";
 import { NavLink } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Topbar from "../Components/Topbar";
 import ClipLoader from "react-spinners/ClipLoader";
+import { createAuthorizedRequest } from "../utils/axios";
 
 const Recommended = () => {
   const [articles, setRecommendedArticles] = useState([]);
@@ -13,7 +13,9 @@ const Recommended = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await publicRequest.get("/api/news/recommendations");
+        const authorizedRequest = createAuthorizedRequest();
+
+        const res = await authorizedRequest.get("/news/recommendations");
         setRecommendedArticles(res.data.recommendedArticles);
         setIsLoading(false);
       } catch (error) {

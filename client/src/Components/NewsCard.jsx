@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { publicRequest } from "../utils/axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { createAuthorizedRequest } from "../utils/axios";
 
 const NewsCard = ({ articles }) => {
   const [isSaved, setIsSaved] = useState(false);
 
   const handleSaveClick = async (url) => {
     try {
-      await publicRequest.post("/api/news/save-article", {
+      const authorizedRequest = createAuthorizedRequest();
+      await authorizedRequest.post("/news/save-article", {
         articleId: url,
         title: articles.title,
         source: articles.source.name,
@@ -27,7 +28,9 @@ const NewsCard = ({ articles }) => {
 
   const handleViewClick = async () => {
     try {
-      await publicRequest.post("/api/news/view-article", {
+      const authorizedRequest = createAuthorizedRequest();
+
+      await authorizedRequest.post("/news/view-article", {
         articleId: articles.url,
         title: articles.title,
         source: articles.source.name,

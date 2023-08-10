@@ -1,9 +1,9 @@
 import React from "react";
 import NewsFetch from "../Components/NewsFetch";
 import { useState } from "react";
-import { publicRequest } from "../utils/axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { createAuthorizedRequest } from "../utils/axios";
 
 import Topbar from "../Components/Topbar";
 
@@ -21,7 +21,9 @@ const Home = () => {
 
   const handleSubmit = async () => {
     try {
-      await publicRequest.post("/api/news", {
+      const authorizedRequest = createAuthorizedRequest();
+
+      await authorizedRequest.post("/news", {
         selectedInterests: [selectedCategory],
       });
       toast.success("News Updated successfully");
