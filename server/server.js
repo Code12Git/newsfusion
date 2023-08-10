@@ -31,23 +31,14 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
-// Create a MongoDB connection instance
-const mongooseConnection = connection();
-// Session configuration with connect-mongo
-const MongoStoreInstance = new connectMongo(session);
 app.use(
   session({
-    store: new MongoStoreInstance({
-      mongooseConnection: mongooseConnection,
-      autoRemove: "interval",
-      autoRemoveInterval: 60,
-    }),
     resave: false,
     saveUninitialized: false,
     secret: process.env.SECRET_KEY || "session-secret",
     cookie: {
       maxAge: 1000 * 60 * 60,
-      sameSite: "lax",
+      sameSite: "none",
       secure: true,
     },
   })
