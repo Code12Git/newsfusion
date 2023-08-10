@@ -20,22 +20,25 @@ const app = express();
 // Defining the port for the server to listen on
 const port = process.env.PORT || 3000;
 
-// Appling middleware
+// Applying middleware
+app.use(express.json());
 app.use(cookieParser());
+
+// CORS configuration
 const corsOptions = {
   origin: "https://newsfusion.vercel.app",
   credentials: true,
 };
-
 app.use(cors(corsOptions));
 
+// Create a MongoDB connection instance
+const mongooseConnection = connection();
 // Session configuration with connect-mongo
-
-const MongoStoreInstance = new connectMongo(session);
+const MongoStoreInstance = connectMongo(session);
 app.use(
   session({
     store: new MongoStoreInstance({
-      url: process.env.MONGO_URI,
+      mongooseConnection: mongooseConnection,
       autoRemove: "interval",
       autoRemoveInterval: 60,
     }),
@@ -52,11 +55,9 @@ app.use(
 
 app.set("trust proxy", 1);
 
-app.use(express.json());
-
 // Enabling Cross-Origin Resource Sharing (CORS)
-app.use("/api/auth", authRoute); //Api for authentication
-app.use("/api/news", newsRoute); //Api for News
+app.use("/api/auth", authRoute); // API for authentication
+app.use("/api/news", newsRoute); // API for News
 
 // Testing route to check if the server is working
 app.get("/", (req, res) => {
