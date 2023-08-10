@@ -26,7 +26,7 @@ app.use(cookieParser());
 
 // CORS configuration
 const corsOptions = {
-  origin: "https://newsfusionapp.onrender.com/register",
+  origin: "https://newsfusionapp.onrender.com",
   credentials: true,
 };
 app.use(cors(corsOptions));
