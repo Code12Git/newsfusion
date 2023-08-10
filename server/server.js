@@ -16,7 +16,7 @@ connection();
 
 // Creating an instance of the Express app
 const app = express();
-const MongoStore = connectMongo(session);
+// const MongoStore = connectMongo(session);
 
 // Defining the port for the server to listen on
 const port = process.env.PORT || 3000;
@@ -31,6 +31,11 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(
   session({
+    store: new (connectMongo(session))({
+      url: process.env.MONGO_URI, // Your MongoDB connection URL
+      autoRemove: "interval",
+      autoRemoveInterval: 60, // Interval in minutes to clean up expired sessions
+    }),
     resave: false,
     saveUninitialized: false,
     secret: process.env.SECRET_KEY || "session",
